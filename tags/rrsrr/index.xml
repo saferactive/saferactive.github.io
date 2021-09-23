@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rrsrr | SaferActive</title>
+    <link>/tags/rrsrr/</link>
+      <atom:link href="/tags/rrsrr/index.xml" rel="self" type="application/rss+xml" />
+    <description>rrsrr</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>University of Leeds</copyright><lastBuildDate>Wed, 27 Apr 2016 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>img/map[gravatar:%!s(bool=false) shape:circle]</url>
+      <title>rrsrr</title>
+      <link>/tags/rrsrr/</link>
+    </image>
+    
+    <item>
+      <title>Reproducible Road Safety Research with R</title>
+      <link>/project/internal-project/</link>
+      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
+      <guid>/project/internal-project/</guid>
+      <description>&lt;p&gt;This book project and training course was funded by the RAC Foundation to support reproducible road safety analysis.
+The free and open source book can be found here: &lt;a href=&#34;https://itsleeds.github.io/rrsrr/&#34;&gt;https://itsleeds.github.io/rrsrr/&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
