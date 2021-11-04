@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>SaferActive</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="The SaferActive Team" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/robot.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/robot-fonts.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# SaferActive
+## 📉🚂🚅🚎🛴🚲🚶📈<br/>(Visual) analysis of road safety data
+### The SaferActive Team
+### University of Leeds, <a href="https://environment.leeds.ac.uk/transport">Institute for Transport Studies</a>
+### University of Leeds, 2021-10-15 (updated: 2021-10-15) Reproducible source code: <a href="https://github.com/saferactive/saferactive">github.com/saferactive/saferactive</a>
+
+---
+
+
+
+
+### Navigating the Stats19 data analysis space
+
+???
+
+starting point : hard to generate genuine/solid findings
+
+large-scale observational dataset -- analysis space large.
+So difficult to know where to start.
+
+*Are* examples of CDA aiming to establish specific things from known data.
+
+Here -- large set of variables; their structure not always known about; sometimes difficult to establish expectations.
+
+Data analysis to make decisions!
+
+--
+
+.pull-left[
+.right[**`accidents`**]
+.right[`accident_index ..`]
+]
+.pull-right[
+crash time, location (~10m resolution), admin location, road context and weather and light conditions
+]
+
+.pull-left[
+.right[**`casualties`**]
+.right[`accident_index  ..`]
+.right[`vehicle_reference  ..`]
+.right[`casualty_reference  ..`]
+]
+.pull-right[
+casualty sex, age, severity, passenger type, home area demogs
+]
+
+.pull-left[
+.right[**`vehicles`**]
+.right[`accident_index  ..`]
+.right[`vehicle_reference  ..`]
+]
+.pull-right[
+vehicles type, age, capacity, manoeuvre type, driver sex, age,  home area demogs, purpose
+]
+
+
+???
+
+So this is where exploratory analysis and vis approaches are suited -- but EDA and vis not all about *discovery* -- describing data, exploring patterns and deriving findings.
+
+---
+
+### Science reform and retiring the EDA/CDA distinction
+
+&lt;img src = "img/challenges_eda.png", width = 55%, style = "position:absolute; top: 20%; left: 8%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/harvard_challenges_eda.png", width = 20%, style = "position:absolute; top: 20%; left: 70%;"&gt;&lt;/img&gt;
+
+???
+
+That about visual data analysis as model formulation and critique : about helping to form comparisons and expectations -- and characterising variation from those expectations.
+
+Also about helping to guard against false discovery -- or at least that should be our ambition.
+
+---
+
+
+### Framework for formalising analysis
+
+
+&lt;img src = "img/framework.png", width = 50%, style = "position:absolute; top: 18%; left: 10%;"&gt;&lt;/img&gt;
+
+
+???
+
+Net of the dominant pattern
+
+Data analysis for decision-making
+
+---
+
+
+### Pedestrian-Vehicle crashes : who-hit-whom demographics
+
+???
+Research identifying diverging characteristics of drivers and those being hit by them.
+
+--
+
+
+.pull-left[
+.right[**`accidents`**]
+.right[`accident_index ..`]
+]
+.pull-right[
+crash time, **location (~10m resolution)**, admin location, road context and weather and light conditions
+]
+
+.pull-left[
+.right[**`casualties`**]
+.right[`accident_index  ..`]
+.right[`vehicle_reference  ..`]
+.right[`casualty_reference  ..`]
+]
+.pull-right[
+casualty sex, age, severity, passenger type, **home area demogs**
+]
+
+.pull-left[
+.right[**`vehicles`**]
+.right[`accident_index  ..`]
+.right[`vehicle_reference  ..`]
+]
+.pull-right[
+vehicles type, age, capacity, manoeuvre type, driver sex, age,  **home area demogs**, purpose
+]
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom demographics
+
+Crash characteristics:
+
+* **`accidents`** : IMD class of crash location : {1 high; 5 low}
+* **`casualties`** : IMD class of pedestrian : {1 high; 5 low}
+* **`vehicles`** : IMD class of driver : {1 high; 5 low}
+
+
+--
+
+&lt;img src = "img/imd-driver-cas-title.png", width = 50%, style = "position:absolute; top: 38%; left: 10%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/imd-driver-cas-obs.png", width = 15%, style = "position:absolute; top:46%; left: 10%;"&gt;&lt;/img&gt;
+
+???
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom demographics
+
+Crash characteristics:
+
+* **`accidents`** : IMD class of crash location : {1 high; 5 low}
+* **`casualties`** : IMD class of pedestrian : {1 high; 5 low}
+* **`vehicles`** : IMD class of driver : {1 high; 5 low}
+
+
+
+&lt;img src = "img/imd-driver-cas-title.png", width = 50%, style = "position:absolute; top: 38%; left: 10%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/imd-driver-cas-obs.png", width = 13%, style = "position:absolute; top:46%; left: 10%;"&gt;&lt;/img&gt;
+
+--
+
+&lt;img src = "img/imd-driver-cas-full.png", width = 50%, style = "position:absolute; top: 70%; left: 10%;"&gt;&lt;/img&gt;
+
+--
+
+&lt;img src = "img/imd-driver-cas-resid.png", width = 16.5%, style = "position:absolute; top: 46%; left: 10%;"&gt;&lt;/img&gt;
+
+???
+
+We expect independence in the relative number recorded crashes by IMD group of pedestrian and driver -- so given the row_totals -- the frequencies by each IMD of driver -- and col_totals -- the frequencies by each IMD  of pedestrian -- we spread expectation amongst the contingency table assuming that joint driver-cas frequencies by IMD are independent.
+
+When we do that -- try to control for dominant pattern -- we find that heavy association between demogs: those more demographically similar are more likely to crash with each other. Particularly true -- darker colour -- for low deprivation driver-cas and might suggest that sphere of circulation/mixing is more demographically narrow. Certainly cities tend not to contain so often very low deprivation.
+
+So controlling for dominant pattern helps us identify obvious confounder.
+
+
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom demographics
+
+Crash characteristics:
+
+* **`accidents`** : IMD class of **crash location** : {1 high; 5 low}
+* **`casualties`** : IMD class of pedestrian : {1 high; 5 low}
+* **`vehicles`** : IMD class of driver : {1 high; 5 low}
+
+--
+
+&lt;img src = "img/imd-driver-cas-crash-title.png", width = 55%, style = "position:absolute; top: 38%; left: 10%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/imd-driver-cas-crash-obs.png", width = 55%, style = "position:absolute; top: 46%; left: 10%;"&gt;&lt;/img&gt;
+
+
+???
+
+Splitting by crash location exposes this
+
+Spread expectation across the contingency table in the same way -- independent of driver-casualty demographics.
+---
+
+
+### Pedestrian-Vehicle crashes : who-hit-whom demographics
+
+Crash characteristics:
+
+* **`accidents`** : IMD class of **crash location** : {1 high; 5 low}
+* **`casualties`** : IMD class of pedestrian : {1 high; 5 low}
+* **`vehicles`** : IMD class of driver : {1 high; 5 low}
+
+
+&lt;img src = "img/imd-driver-cas-crash-title.png", width = 55%, style = "position:absolute; top: 38%; left: 10%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/imd-driver-cas-crash-resid.png", width = 55%, style = "position:absolute; top: 46%; left: 10%;"&gt;&lt;/img&gt;
+
+
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom demographics
+
+Crash characteristics:
+
+* **`accidents`** : IMD class of **crash location** : {1 high; 5 low}
+* **`casualties`** : IMD class of **pedestrian** : {1 high; 5 low}
+* **`vehicles`** : IMD class of **driver** : {1 high; 5 low}
+
+&lt;img src = "img/imd-geodemog-dist-title.png", width = 55%, style = "position:absolute; top: 38%; left: 10%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/imd-geodemog-dist.png", width = 55%, style = "position:absolute; top: 46%; left: 10%;"&gt;&lt;/img&gt;
+
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom demographics
+
+Crash characteristics:
+
+* **`accidents`** : IMD class of **crash location** : {1 high; 5 low}
+* **`casualties`** : IMD class of **pedestrian** : {1 high; 5 low}
+* **`vehicles`** : IMD class of **driver** : {1 high; 5 low}
+
+&lt;img src = "img/imd-geodemog-dist-title.png", width = 55%, style = "position:absolute; top: 38%; left: 10%;"&gt;&lt;/img&gt;
+
+
+&lt;img src = "img/imd-driver-cas-crash-dist-full.png", width = 55%, style = "position:absolute; top: 46%; left: 10%;"&gt;&lt;/img&gt;
+
+---
+
+
+### Pedestrian-Vehicle crashes : who-hit-whom demographics
+
+Crash characteristics:
+
+* **`accidents`** : IMD class of **crash location** : {1 high; 5 low}
+* **`casualties`** : IMD class of **pedestrian** : {1 high; 5 low}
+* **`vehicles`** : IMD class of **driver** : {1 high; 5 low}
+
+&lt;img src = "img/imd-geodemog-dist-title.png", width = 55%, style = "position:absolute; top: 38%; left: 10%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/imd-driver-cas-crash-dist-resid.png", width = 55%, style = "position:absolute; top: 46%; left: 10%;"&gt;&lt;/img&gt;
+
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom severity
+
+--
+
+&lt;img src = "img/bars-assoc-title.png", width = 25%, style = "position:absolute; top: 25%; left: 10%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/bar-freq.png", width = 25%, style = "position:absolute; top: 33%; left: 10%;"&gt;&lt;/img&gt;
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom severity
+
+&lt;img src = "img/bars-assoc-title.png", width = 25%, style = "position:absolute; top: 25%; left: 10%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/bars-assoc-stacked.png", width = 25%, style = "position:absolute; top: 32%; left: 10%;"&gt;&lt;/img&gt;
+
+--
+
+&lt;img src = "img/bars-assoc-exp.png", width = 22.2%, style = "position:absolute; top: 32%; left: 35.5%;"&gt;&lt;/img&gt;
+
+--
+
+&lt;img src = "img/bars-assoc-prop.png", width = 22.3%, style = "position:absolute; top: 32%; left: 35.5%;"&gt;&lt;/img&gt;
+
+--
+
+&lt;img src = "img/bars-assoc-mosaic.png", width = 26%, style = "position:absolute; top: 32%; left: 58%;"&gt;&lt;/img&gt;
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom severity
+
+**Expectation**
+
+*---- Casualty severity does not vary depending on vehicle type*
+
+--
+&lt;table&gt;
+&lt;caption&gt;&lt;/caption&gt;
+ &lt;thead&gt;
+&lt;tr&gt;
+&lt;th style="empty-cells: hide;border-bottom:hidden;" colspan="1"&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Observed&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Expected&lt;/div&gt;&lt;/th&gt;
+&lt;th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"&gt;&lt;div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; "&gt;Signed chi-scores&lt;/div&gt;&lt;/th&gt;
+&lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Vehicle type &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; KSI &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Slight &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Row Total &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; KSI Exp &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Slight Exp &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; KSI Resid &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Slight Resid &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Car &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 42305 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 137924 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 180229 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 43195 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 137034 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -4.28 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.40 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Van &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3786 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11422 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 15208 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3645 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11563 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.31 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Taxi &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2580 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9188 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 11768 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2820 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8948 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -4.53 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.54 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Bus &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2951 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8425 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 11376 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2726 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8650 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -2.41 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Motorcycle &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2137 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7102 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 9239 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2214 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7025 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.64 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; HGV &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2030 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3195 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 5225 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1252 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3973 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21.98 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -12.34 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Other &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1096 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3302 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 4398 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1054 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3344 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.73 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Bicycle &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1033 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3184 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 4217 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1011 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3206 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.70 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.39 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;"&gt; Column Total &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 57918 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 183742 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;font-weight: bold;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+???
+
+Chi-square residuals
+
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom severity
+
+
+**Expectation**
+
+*---- Casualty severity **and crash frequency** does not vary depending on vehicle type **and location***
+
+--
+
+&lt;img src = "img/mosaic_harrow_westminster.png", width = 55%, style = "position:absolute; top: 35%; left: 10%;"&gt;&lt;/img&gt;
+
+
+--
+
+&lt;img src = "img/mosaic_harrow_westminster_colour.png", width = 55%, style = "position:absolute; top: 35%; left: 10%;"&gt;&lt;/img&gt;
+
+--
+
+&lt;img src = "img/mosaic_harrow_westminster_colour_none.png", width = 55%, style = "position:absolute; top: 35%; left: 10%;"&gt;&lt;/img&gt;
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom severity
+
+**Expectation**
+
+*---- Casualty severity **and crash frequency** does not vary depending on vehicle type **and location***
+
+
+&lt;img src = "img/anim_real_grid.gif", width = 45%, style = "position:absolute; top: 35%; left: 8%;"&gt;&lt;/img&gt;
+
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom severity
+
+**Expectation**
+
+*---- Casualty severity **and crash frequency** does not vary depending on vehicle type **and location***
+
+&lt;img src = "img/mosaic_boroughs_spatial.png", width = 42%, style = "position:absolute; top: 35%; left: 8%;"&gt;&lt;/img&gt;
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom severity
+
+**Expectation**
+
+*---- Casualty severity **and crash frequency** does not vary depending on vehicle type **and location***
+
+&lt;img src = "img/mosaic_boroughs_spatial_simp.png", width = 42%, style = "position:absolute; top: 35%; left: 8%;"&gt;&lt;/img&gt;
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom severity
+
+**Expectation**
+
+*---- Casualty severity does not vary depending on location*
+
+&lt;img src = "img/bars_boroughs_severity.png", width = 42%, style = "position:absolute; top: 35%; left: 8%;"&gt;&lt;/img&gt;
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom severity
+
+**Expectation**
+
+*---- Casualty severity does not vary depending on location*
+
+&lt;img src = "img/boroughs_car.png", width = 42%, style = "position:absolute; top: 35%; left: 8%;"&gt;&lt;/img&gt;
+
+---
+
+### Pedestrian-Vehicle crashes : who-hit-whom severity
+
+**Expectation**
+
+*---- Casualty severity does not vary depending on location*
+
+&lt;img src = "img/lineup.png", width = 55%, style = "position:absolute; top: 35%; left: 8%;"&gt;&lt;/img&gt;
+
+---
+
+
+### Pedestrian-Vehicle crashes : **monitoring** severity by area
+
+--
+
+#### Where, and by how much, are injury severity rates high or low?
+
+--
+.pull-left[
+.right[risk-ratio&lt;sub&gt;lad&lt;/sub&gt; = ksi&lt;sub&gt;lad&lt;/sub&gt; / ksi&lt;sub&gt;nat&lt;/sub&gt;]
+]
+--
+
+&lt;img src = "img/rrs-title.png", width = 35%, style = "position:absolute; top: 14%; left: 60%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/rrs.png", width = 35%, style = "position:absolute; top: 20%; left: 60%;"&gt;&lt;/img&gt;
+
+--
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.pull-left[
+ .right[High : Uttlesford 83%]  &lt;br&gt;
+ .right[Low : Bromsgrove 4%]
+]
+???
+---
+### Pedestrian-Vehicle crashes : **monitoring** severity by area
+
+
+#### Where, and by how much, are injury severity rates high or low?
+
+.pull-left[
+.right[risk-ratio&lt;sub&gt;lad&lt;/sub&gt; = ksi&lt;sub&gt;lad&lt;/sub&gt; / ksi&lt;sub&gt;nat&lt;/sub&gt;]
+]
+
+
+&lt;img src = "img/rrs-title.png", width = 35%, style = "position:absolute; top: 14%; left: 60%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/rrs.png", width = 35%, style = "position:absolute; top: 20%; left: 60%;"&gt;&lt;/img&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.pull-left[
+ .right[High : Uttlesford 83% -- **12 crashes**]  &lt;br&gt;
+ .right[Low : Bromsgrove 4% -- **27 crashes**]
+]
+
+
+???
+
+---
+
+### Pedestrian-Vehicle crashes : **monitoring** severity by area
+
+
+#### Where, and by how much, are injury severity rates high or low?
+
+
+.pull-left[
+.right[risk-ratio&lt;sub&gt;lad&lt;/sub&gt; = ksi&lt;sub&gt;lad&lt;/sub&gt; / ksi&lt;sub&gt;nat&lt;/sub&gt;]
+]
+
+
+&lt;img src = "img/rrs-title-boot.png", width = 35%, style = "position:absolute; top: 14%; left: 60%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/rrs-boot.png", width = 35%, style = "position:absolute; top: 20%; left: 60%;"&gt;&lt;/img&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.pull-left[
+ .right[High : Uttlesford 83% -- **12 crashes**]  &lt;br&gt;
+ .right[Low : Bromsgrove 4% -- **27 crashes**]
+]
+
+--
+
+
+&lt;img src = "img/empirical-bayes.png", width = 45%, style = "position:absolute; top: 40%; left: 30%;"&gt;&lt;/img&gt;
+
+---
+### Pedestrian-Vehicle crashes : **monitoring** severity by area
+
+
+#### Where, and by how much, are injury severity rates high or low?
+
+.pull-left[
+.right[risk-ratio&lt;sub&gt;lad&lt;/sub&gt; = ksi&lt;sub&gt;lad&lt;/sub&gt; / ksi&lt;sub&gt;nat&lt;/sub&gt;]
+]
+
+
+&lt;img src = "img/rrs-title-boot.png", width = 35%, style = "position:absolute; top: 14%; left: 60%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/rrs-boot.png", width = 35%, style = "position:absolute; top: 20%; left: 60%;"&gt;&lt;/img&gt;
+
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.pull-left[
+ .right[High : Uttlesford 83% -- 12 crashes **&gt; 58%**]  &lt;br&gt;
+ .right[Low : Bromsgrove 4% -- 27 crashes **&gt; 13%**]
+]
+
+
+
+???
+
+---
+
+### Pedestrian-Vehicle crashes : **monitoring** severity by area
+
+
+#### Where, and by how much, are injury severity rates high or low?
+
+.pull-left[
+.right[risk-ratio&lt;sub&gt;lad&lt;/sub&gt; = ksi&lt;sub&gt;lad&lt;/sub&gt; / ksi&lt;sub&gt;nat&lt;/sub&gt;]
+]
+
+
+&lt;img src = "img/rrs-title-boot.png", width = 35%, style = "position:absolute; top: 14%; left: 60%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/rrs-boot.png", width = 35%, style = "position:absolute; top: 20%; left: 60%;"&gt;&lt;/img&gt;
+
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.pull-left[
+.right[High : Uttlesford 83% -- 12 crashes **&gt; 58%**]  &lt;br&gt;
+.right[Low : Bromsgrove 4% -- 27 crashes **&gt; 13%**]  &lt;br&gt; &lt;br&gt;
+ .right[**Multiple testing**?]
+]
+
+
+
+---
+
+
+### Pedestrian-Vehicle crashes : **monitoring** severity by area
+
+
+
+#### So how risky is it when a pedestrian is hit by a vehicle?
+
+--
+.pull-left[
+ .right[Bristol 15%, 228 crashes]
+]
+
+.pull-right[
+.left[Sheffield 50%, 248 crashes]
+]
+
+--
+
+&lt;img src = "img/risk-theatre.jpg", width = 50%, style = "position:absolute; top: 45%; left: 25%;"&gt;&lt;/img&gt;
+
+???
+
+2% | 15% | 28%
+
+It is notoriously difficult to develop intuition around these sorts of relative frequencies. In the STATS19 dataset, we might wish to compare the injury severity rate of pedestrain-vehicle road crashes – the proportion of all crashes that resulted in a serious injury or fatality (KSI) – taking place between two local authority areas, say Bristol and Sheffield. There is in fact quite a difference in the injury severity rate between these two local authority areas in 2019: 15% for Bristol (35 out of 228 reported crashes were KSI) versus 50% for Sheffield (124 out of 248 reported crashes were KSI).
+
+---
+
+
+### Pedestrian-Vehicle crashes : **monitoring** severity by area
+
+
+
+#### Where, and by how much, are injury severity rates high or low?
+
+#### So how risky is it when a pedestrian is hit by a vehicle?
+
+.pull-left[
+ .right[Bristol 15%, 228 crashes]
+]
+
+.pull-right[
+.left[Sheffield 50%, 248 crashes]
+]
+
+
+&lt;img src = "img/icon-arrays.png", width = 45%, style = "position:absolute; top: 45%; left: 27%;"&gt;&lt;/img&gt;
+
+---
+
+### Framework for formalising analysis
+
+
+&lt;img src = "img/framework.png", width = 50%, style = "position:absolute; top: 18%; left: 10%;"&gt;&lt;/img&gt;
+
+
+???
+
+Net of the dominant pattern
+
+Data analysis for decisions
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": false,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
