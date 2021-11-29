@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Science Reform and (Visual) Data Science: Retiring the EDA/CDA dichotomy</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Roger Beecham" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="slides-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, title-slide
+
+# Science Reform and (Visual) Data Science: Retiring the EDA/CDA dichotomy
+### Roger Beecham
+### <p>30 Nov 2021</p>
+<p><a href="https://www.roger-beecham.com"><code>roger-beecham.com</code></a></p>
+
+---
+
+
+
+
+### STATS19 Road Crash Data
+
+--
+
+
+&lt;img src = "img/stats19.png", width = 30%, style = "position:absolute; top: 22%; left: 40%;"&gt;&lt;/img&gt;
+&lt;img src = "img/stats19_2.png", width = 30%, style = "position:absolute; top: 22%; left: 8%;"&gt;&lt;/img&gt;
+
+
+???
+
+???
+
+Starting point :
+* research project on STATS19, canonical road safety dataset
+* every crash resulting in inury in UK is recorded
+* many variables, many ways of cutting data
+
+Set of high level ambitions :
+* Generating knowledge around contributing factors to pedestrain and cycle casualties
+* Monitoring and evaluating crash rates between reporting areas and over time
+
+Identified numerous interesting and complex patterns from exploring data, but ones that we have varying confidence in -- due to uncertainty around dataset, technique and reporting
+
+So quite difficult to *claim knowledge* -- or to know where to stop in our exploratory analysis -- .
+
+
+:
+* doing comparison, uncertainty around the selection of denominators and other definitions;
+* dominant patterns that appear  very salient due to some obvious confounding effect but not quite sure how to model for this
+* when starting to condition on data to account for some of this confounding context, have high variability / low uncertainty due to diminishing sample size
+
+---
+
+### Science Reform
+
+
+???
+
+Struck me as typical in a lot of Data Science-type work, certainly in geography -- where repurposing data for analysis, and maybe looking at complex spatial processes for which there is not agreed/accepted technique -- for computation and reporting.
+
+Science Reform --
+
+Address Data Fishing
+
+Two discrete phases -- Exploratory Data Analysis (EDA) and Confirmatory Data Analysis (CDA) -- and that only through CDA statistical findings are claimed using out-of-sample hypothesis tests.
+
+But strict adherence to it may not guarantee strong Science with our data sets
+
+May lead to staw-men null hypotheses
+
+
+--
+.pull-left[
+&lt;img src = "img/science-reform-paper.png", width = 35%, style = "position:absolute; top: 22%; left: 8%;"&gt;&lt;/img&gt;
+]
+
+
+.pull-right[.tiny-font[
+&gt; 1. That Reproducibility is the cornerstone of, or demarcation criteria for, Science
+&gt;
+&gt; 2. Using data more than once invalidates statistical inference (pre-registration)
+&gt;
+&gt; 3. Exploratory research uses 'wonky' statistics (EDA-CDA dichotomy)
+]]
+
+--
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.pull-left[.small-font[
+&lt;b&gt;Reproducing Data Fishing?&lt;/b&gt;
+]]
+
+.pull-right[
+.tiny-font[
+&gt; *More is learned from rejection of a complex model than from rejection of a trivial null model, such as a hypothesis that all effects are exactly zero.*
+&gt;
+&gt;     Hullman and Gelman, 2021
+]]
+
+
+
+---
+
+### Retiring the EDA/CDA distinction
+
+&lt;img src = "img/challenges_eda.png", width = 45%, style = "position:absolute; top: 22%; left: 8%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/harvard_challenges_eda.png", width = 18%, style = "position:absolute; top: 22%; left: 65%;"&gt;&lt;/img&gt;
+
+
+
+???
+
+Interesting discussion from the vis / applied stats community about an enlarged EDA which is more model-focussed and concerned with generating complex models that also sensitive to false discovery
+
+
+An expanded role for EDA ...
+Really the risk -- when doing an EDA where generate loads of graphics that suggest at patterns -- that emphasise discovery -- is that of false discovery
+
+* Visual data analysis as model formulation and critique : about helping to form comparisons and expectations -- and characterising variation from those expectations.
+
+* That sometimes visual approaches may uniquely help with this because, especially when thinking about spatial analyses, where the sorts of detailed patterns being inferred cannot be correctly specified in advance, visualization may provide unique support
+
+
+&gt; EDA is often thought of as an alternative to model-based statistical analysis, but once we think of graphs as comparisons to models, it makes sense that the amount weÃ¢ÂÂve learned increases with the complexity of the model being compared to
+&gt; Hullman and Gelman 2021
+
+---
+
+### Framework for formalising an expanded EDA
+
+
+&lt;img src = "img/framework_diagram.png", width = 50%, style = "position:absolute; top: 22%; left: 8%;"&gt;&lt;/img&gt;
+
+
+???
+
+Net of the dominant pattern
+
+Data analysis for decision-making
+
+---
+
+### Framework for formalising an expanded EDA
+
+&lt;img src = "img/analysis_1.png", width = 40%, style = "position:absolute; top: 22%; left: 8%;"&gt;&lt;/img&gt;
+
+&lt;img src = "img/analysis_2.png", width = 30%, style = "position:absolute; top: 22%; left: 55%;"&gt;&lt;/img&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"slideNumberFormat": ""
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
